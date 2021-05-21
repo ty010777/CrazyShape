@@ -17,8 +17,10 @@ public final class MyAppGlideModule : AppGlideModule()
 
 
 class MainActivity : AppCompatActivity(),
-    GestureDetector.OnGestureListener,View.OnTouchListener {
+    GestureDetector.OnGestureListener,View.OnTouchListener,
+    GestureDetector.OnDoubleTapListener {
     lateinit var gDetector: GestureDetector
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(),
 
         GlideApp.with(this)
             .load(R.drawable.cover)
+            .override(800, 600)
             .into(img)
 
     }
@@ -60,9 +63,6 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-
-
-
     override fun onDown(e: MotionEvent?): Boolean {
         TODO("Not yet implemented")
     }
@@ -71,9 +71,9 @@ class MainActivity : AppCompatActivity(),
         TODO("Not yet implemented")
     }
 
-    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
-        PictureNo = (0..3).random()
 
+    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
+        PictureNo = 0
         ShowPicture()
         return true
     }
@@ -88,15 +88,8 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onLongPress(p0: MotionEvent?) {
-        if(PictureNo ==0){
-            txvMsg.text = "請畫出圓形"
-        }else if(PictureNo ==1){
-            txvMsg.text = "請畫出三角形"
-        }else if(PictureNo ==2){
-            txvMsg.text = "請畫出星形"
-        }else{
-            txvMsg.text = "請畫出正方形"
-        }
+        PictureNo = TotalPictures - 1
+        ShowPicture()
     }
 
     override fun onFling(
@@ -105,6 +98,18 @@ class MainActivity : AppCompatActivity(),
         velocityX: Float,
         velocityY: Float
     ): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDoubleTap(e: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDoubleTapEvent(e: MotionEvent?): Boolean {
         TODO("Not yet implemented")
     }
 }
