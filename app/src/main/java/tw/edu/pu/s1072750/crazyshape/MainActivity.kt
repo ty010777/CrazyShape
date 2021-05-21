@@ -3,6 +3,8 @@ package tw.edu.pu.s1072750.crazyshape
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -13,10 +15,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 public final class MyAppGlideModule : AppGlideModule()
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    GestureDetector.OnGestureListener,View.OnTouchListener {
+    lateinit var gDetector: GestureDetector
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        gDetector = GestureDetector(this, this)
+        imgNext.setOnTouchListener(this)
 
         Toast.makeText(baseContext, "作者：陳嘉良", Toast.LENGTH_LONG).show()
 
@@ -33,5 +39,64 @@ class MainActivity : AppCompatActivity() {
             .load(R.drawable.cover)
             .into(img)
 
+    }
+
+    override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
+        gDetector.onTouchEvent(event)
+        return true
+    }
+
+    var PictureNo: Int = 0  //目前顯示第幾張圖
+    var TotalPictures: Int = 4 //總共幾張圖片(假設僅顯示pu0-pu3)
+
+
+    fun ShowPicture() {
+        when (PictureNo) {
+            0 -> imgNext.setImageResource(R.drawable.circle)
+            1 -> imgNext.setImageResource(R.drawable.triangle)
+            2 -> imgNext.setImageResource(R.drawable.star)
+            3 -> imgNext.setImageResource(R.drawable.square)
+        }
+    }
+
+
+
+
+    override fun onDown(e: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onShowPress(e: MotionEvent?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSingleTapUp(p0: MotionEvent?): Boolean {
+        PictureNo = (0..3).random()
+
+        ShowPicture()
+        return true
+    }
+
+    override fun onScroll(
+        e1: MotionEvent?,
+        e2: MotionEvent?,
+        distanceX: Float,
+        distanceY: Float
+    ): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLongPress(p0: MotionEvent?) {
+        PictureNo = TotalPictures - 1
+        ShowPicture()
+    }
+
+    override fun onFling(
+        e1: MotionEvent?,
+        e2: MotionEvent?,
+        velocityX: Float,
+        velocityY: Float
+    ): Boolean {
+        TODO("Not yet implemented")
     }
 }
