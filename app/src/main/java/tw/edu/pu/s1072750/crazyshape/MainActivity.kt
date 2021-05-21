@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
+import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.activity_main.*
 @GlideModule
 public final class MyAppGlideModule : AppGlideModule()
@@ -87,8 +88,15 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onLongPress(p0: MotionEvent?) {
-        PictureNo = TotalPictures - 1
-        ShowPicture()
+        if(PictureNo ==0){
+            txvMsg.text = "請畫出圓形"
+        }else if(PictureNo ==1){
+            txvMsg.text = "請畫出三角形"
+        }else if(PictureNo ==2){
+            txvMsg.text = "請畫出星形"
+        }else{
+            txvMsg.text = "請畫出正方形"
+        }
     }
 
     override fun onFling(
