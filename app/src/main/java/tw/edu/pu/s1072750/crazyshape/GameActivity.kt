@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
